@@ -16,12 +16,27 @@ class Product extends Model
     ];
 
     protected $casts = [
-        'cost_price'      => 'decimal:2',
-        'selling_price'   => 'decimal:2',
-        'stock_quantity'  => 'integer',
+        'cost_price'          => 'decimal:2',
+        'selling_price'       => 'decimal:2',
+        'stock_quantity'      => 'integer',
         'low_stock_threshold' => 'integer',
-        'is_active'       => 'boolean',
+        'is_active'           => 'boolean',
     ];
+
+    // ── Appended fields ───────────────────────────────────────────
+    protected $appends = ['price'];
+
+    // price is an alias for selling_price so Flutter app works
+    public function getPriceAttribute()
+    {
+        return $this->selling_price;
+    }
+
+    // Allow setting price as well
+    public function setPriceAttribute($value)
+    {
+        $this->selling_price = $value;
+    }
 
     public function category()
     {
