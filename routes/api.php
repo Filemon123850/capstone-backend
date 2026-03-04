@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SaleController;
 use App\Http\Controllers\Api\LogController;
+use App\Http\Controllers\Api\TechnicianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,4 +58,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/logs', [LogController::class, 'index']);
         Route::get('/logs/export', [LogController::class, 'export']);
     });
+
+    // Technician routes (accessible by staff and admin)
+    Route::get('/technician/queue', [TechnicianController::class, 'queue']);
+    Route::post('/technician/review/{saleId}', [TechnicianController::class, 'review']);
 });
